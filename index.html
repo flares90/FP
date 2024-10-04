@@ -3,33 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rectángulos de Colores Individuales</title>
+    <title>Rectángulos de Colores en Tabla</title>
     <style>
         .rectangle {
             width: 100px;
             height: 50px;
             margin: 5px;
-            display: inline-block;
             background-color: green;
             cursor: pointer;
-        }
-        .container {
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container" id="rectangleContainer">
-        <!-- Los rectángulos se generarán aquí -->
-    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Maquina</th>
+                <th>ID</th>
+                <th>MU</th>
+                <th>Yield</th>
+                <th>C.T</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Los rectángulos se generarán aquí -->
+        </tbody>
+    </table>
 
     <script>
-        // Crear 20 rectángulos
-        const container = document.getElementById('rectangleContainer');
-        for (let i = 0; i < 20; i++) {
+        // Crear 20 rectángulos y agregarlos a la tabla
+        const tableBody = document.getElementById('tableBody');
+        for (let i = 1; i <= 20; i++) {
+            const row = document.createElement('tr');
+            const cell = document.createElement('td');
             const rect = document.createElement('div');
             rect.className = 'rectangle';
+            rect.textContent = `KFL${i}`;
             rect.addEventListener('click', () => {
                 if (rect.style.backgroundColor === 'green') {
                     rect.style.backgroundColor = 'red';
@@ -37,10 +60,16 @@
                     rect.style.backgroundColor = 'green';
                 }
             });
-            container.appendChild(rect);
+            cell.appendChild(rect);
+            row.appendChild(cell);
+
+            // Agregar celdas vacías para las otras columnas
+            for (let j = 0; j < 4; j++) {
+                row.appendChild(document.createElement('td'));
+            }
+
+            tableBody.appendChild(row);
         }
     </script>
 </body>
 </html>
-
-
